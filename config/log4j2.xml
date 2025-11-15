@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration packages="com.practice.bankservice.observability.log">
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT" follow="true">
+			<LogLayout service="bank-service" stack-trace-limit="15"/>
+			<!-- Comment line above for development -->
+			<PatternLayout
+					pattern="%highlight{timestamp=%d{yyyy-MM-dd HH:mm:ss.SSS}, level=%-5p, [%X{request_id}] clazz=%c %msg%n}{ERROR=red, WARN=magenta, INFO=cyan, DEBUG=yellow, TRACE=green}"/>
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="STDOUT"/>
+		</Root>
+		<Logger name="org.apache.kafka.common.security.oauthbearer.internals.expiring.ExpiringCredentialRefreshingLogin"
+				level="OFF" additivity="false">
+			<AppenderRef ref="STDOUT"/>
+		</Logger>
+	</Loggers>
+</Configuration>
